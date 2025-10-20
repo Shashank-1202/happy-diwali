@@ -1,19 +1,144 @@
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:radial-gradient(circle at 50% 20%, #101026, #05051a);height:100vh;font-family:Arial, Helvetica, sans-serif;color:#fff;display:flex;align-items:center;justify-content:center}
-.scene{text-align:center}
-.greeting{font-size:4rem;margin-bottom:1rem;color: #ffd166; text-shadow: 0 2px 20px rgba(255, 209, 102, .25)}
-.crackers{position:relative;height:300px;width:100%;max-width:900px;margin:0 auto}
-.spark{
-  position:absolute;
-  bottom:10%;
-  width:6px;height:6px;border-radius:50%;
-  box-shadow:0 0 10px rgba(255,255,255,.8);
-  animation: fly 1.2s linear forwards, glow .8s linear infinite;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  height: 100vh;
+  background: radial-gradient(circle at 50% 20%, #090921, #000);
+  overflow: hidden;
+  font-family: "Poppins", Arial, sans-serif;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-@keyframes fly{
-  0%{transform:translateY(0) scale(1); opacity:1}
-  60%{opacity:1}
-  100%{transform:translateY(-300px) translateX(60px) scale(.6); opacity:0}
+
+.scene {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-@keyframes glow{0%{filter:blur(0)}50%{filter:blur(4px)}100%{filter:blur(0)}}
+
+/* --- Gradient Text --- */
+.greeting {
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff4d4d, #ffd166, #6bf178, #4dd7ff, #c77dff, #ff9f1c);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientFlow 6s ease infinite;
+  text-shadow: 0 0 40px rgba(255,255,255,0.3);
+  margin-top: 5%;
+}
+
+.tagline {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #ffd166;
+  text-shadow: 0 0 20px rgba(255, 209, 102, .4);
+  font-style: italic;
+  animation: fadeIn 3s ease-in-out infinite alternate;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+
+/* --- Fireworks --- */
+.crackers {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,255,255,.8);
+  animation: fly 1.5s ease-out forwards, glow .8s linear infinite;
+}
+
+@keyframes fly {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translateY(-400px) translateX(60px) scale(.5); opacity: 0; }
+}
+
+@keyframes glow {
+  0%,100% { filter: blur(0); }
+  50% { filter: blur(4px); }
+}
+
+/* --- Lamps --- */
+.lamps {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  animation: flicker 2s infinite alternate;
+}
+
+.diya {
+  position: relative;
+  width: 50px;
+  height: 30px;
+  background: linear-gradient(to top, #ff9900, #ffcc66);
+  border-radius: 0 0 50px 50px;
+  box-shadow: 0 0 30px rgba(255,165,0,0.5);
+}
+
+.flame {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  width: 14px;
+  height: 28px;
+  background: radial-gradient(circle at 50% 40%, #fff, #ffcc00, #ff6600 80%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: flameDance 1s infinite ease-in-out alternate;
+  box-shadow: 0 0 25px rgba(255, 200, 0, 0.8);
+}
+
+@keyframes flameDance {
+  0% { transform: translateX(-50%) scaleY(1); opacity: 1; }
+  50% { transform: translateX(-52%) scaleY(0.9); opacity: 0.9; }
+  100% { transform: translateX(-48%) scaleY(1); opacity: 1; }
+}
+
+@keyframes flicker { from { opacity: 0.9; } to { opacity: 1; } }
+
+/* --- Confetti --- */
+.confetti {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  opacity: 0.9;
+  transform: rotate(45deg);
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
 
