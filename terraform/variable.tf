@@ -1,12 +1,11 @@
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "6.17.0"
+variable "aws_region" {
+    description = "The AWS region for EKS deployment"
+    type    = string
+    default = "ap-south-1"
     }
-  }
-}
 
-provider "aws" {
-  region = var.aws_region
-}
+variable "cluster_name" {
+    description = "The name of the EKS cluster"
+    type = string
+    default = "diwali-eks-cluster"
+    }
