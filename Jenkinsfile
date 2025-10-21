@@ -41,7 +41,7 @@ pipeline {
                         export KUBECONFIG=${KUBECONFIG_FILE}
                         kubectl apply -f k8s/
                         # Optional: wait until deployment is ready
-                        kubectl rollout status deployment/happy-diwali -n default -w --timeout=120s
+                        kubectl rollout status deployment/diwali-app -n default -w --timeout=120s
                     '''
                 }
             }
@@ -57,4 +57,5 @@ pipeline {
         }
     }
 }
+
 
