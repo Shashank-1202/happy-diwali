@@ -27,7 +27,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: DOCKERHUB_CRED, usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
                     sh """
                         echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
-                        docker push shashanki12/happy-diwali:latest
+                        docker push ${DOCKER_REPO}:${IMAGE_TAG}
                     """
 
                 }
@@ -37,11 +37,12 @@ pipeline {
         stage ('Deploy on Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: KUBECONFIG_SECRET, variable: 'KUBECONFIG_FILE')]) {
-                    sh """
+                    sh '''
                         export KUBECONFIG=${KUBECONFIG_FILE}
-                        kubectl set image deployment/happy-diwali web=shashanki12/happy-diwali:latest --record
-                        kubectl rollout status deployment/happy-diwali -w --timeout=120s
-                    """
+                        kubectl apply -f k8s/
+                        # Optional: wait until deployment is ready
+                        kubectl rollout status deployment/happy-diwali -n default -w --timeout=120s
+                    '''
                 }
             }
         }
@@ -56,3 +57,4 @@ pipeline {
         }
     }
 }
+
